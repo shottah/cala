@@ -47,9 +47,15 @@ jobs:
         env:
           SQLX_OFFLINE: "true"
 
-      # `npm publish` runs prepublishOnly (`napi pre-publish -t npm`), which
-      # copies the addon into the per-platform package, publishes it, updates
-      # the main package's optionalDependencies, then publishes the main package.
+      # `napi build` emits the addon in the package root; stage it into the
+      # per-platform package dir so `napi pre-publish` ships it with the binary.
+      - name: Stage addon into per-platform package
+        run: cp cala-ledger.darwin-arm64.node npm/darwin-arm64/
+
+      # `npm publish` runs prepublishOnly (`napi pre-publish -t npm
+      # --no-gh-release`), which publishes the per-platform package (now
+      # carrying the .node), updates the main package's optionalDependencies,
+      # then npm publishes the main package.
       - name: Publish to GitHub Packages
         run: npm publish
         env:
