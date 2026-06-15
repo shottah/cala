@@ -1,0 +1,56 @@
+name: publish-cala-nodejs
+
+# Publishes @shottah/cala-ledger (darwin-arm64) to GitHub Packages.
+# Triggered by a dedicated tag so it never clashes with cala's own
+# release tags (e.g. `0.15.11`). Bump cala-nodejs/package.json#version
+# to match, then push a tag like `cala-nodejs-v0.15.11`.
+on:
+  push:
+    tags:
+      - "cala-nodejs-v*"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    # macos-14 is Apple Silicon (arm64) → builds aarch64-apple-darwin natively.
+    runs-on: macos-14
+    defaults:
+      run:
+        working-directory: cala-nodejs
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com
+          scope: "@shottah"
+
+      - name: Enable corepack (yarn 4)
+        run: corepack enable
+
+      - name: Install JS deps
+        run: yarn install --immutable
+
+      # SQLX_OFFLINE is load-bearing: cala-ledger uses compile-time sqlx checks
+      # and ships .sqlx query data, so the build must not hit a live database.
+      - name: Build native addon (release, darwin-arm64)
+        run: yarn build
+        env:
+          SQLX_OFFLINE: "true"
+
+      # `npm publish` runs prepublishOnly (`napi pre-publish -t npm`), which
+      # copies the addon into the per-platform package, publishes it, updates
+      # the main package's optionalDependencies, then publishes the main package.
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
