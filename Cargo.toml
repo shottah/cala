@@ -8,6 +8,8 @@ members = [
   "cala-cel-parser",
   "cala-cel-interpreter",
   "cala-perf",
+
+  "cala-nodejs",
 ]
 
 [workspace.dependencies]

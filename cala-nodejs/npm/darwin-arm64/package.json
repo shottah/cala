@@ -1,0 +1,27 @@
+{
+  "name": "@shottah/cala-ledger-darwin-arm64",
+  "version": "0.15.11",
+  "cpu": [
+    "arm64"
+  ],
+  "main": "cala-ledger.darwin-arm64.node",
+  "files": [
+    "cala-ledger.darwin-arm64.node"
+  ],
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">= 10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shottah/cala.git",
+    "directory": "cala-nodejs"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "os": [
+    "darwin"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "name": "@shottah/cala-ledger",
+  "version": "0.15.11",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shottah/cala.git",
+    "directory": "cala-nodejs"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "napi": {
+    "binaryName": "cala-ledger",
+    "targets": [
+      "aarch64-apple-darwin"
+    ]
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.2.0",
+    "ava": "^4.3.3"
+  },
+  "ava": {
+    "timeout": "3m"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "scripts": {
+    "artifacts": "napi artifacts",
+    "build": "napi build --platform --release",
+    "build:debug": "napi build --platform",
+    "prepublishOnly": "napi pre-publish -t npm",
+    "test": "ava",
+    "version": "napi version"
+  },
+  "packageManager": "yarn@4.0.2"
+}
