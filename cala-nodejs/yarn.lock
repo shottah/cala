@@ -33,15 +33,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@galoymoney/cala-ledger@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@galoymoney/cala-ledger@workspace:."
-  dependencies:
-    "@napi-rs/cli": "npm:^3.2.0"
-    ava: "npm:^4.3.3"
-  languageName: unknown
-  linkType: soft
-
 "@inquirer/ansi@npm:^1.0.0":
   version: 1.0.0
   resolution: "@inquirer/ansi@npm:1.0.0"
@@ -1077,6 +1068,15 @@ __metadata:
   checksum: 5bd7576bb1b38a47a7fc7b51ac9f38748e772beebc56200450c4a817d712232b8f1d3ef70532c80840243c657d491cf6a6be1e3a214cff907645819fdc34aadd
   languageName: node
   linkType: hard
+
+"@shottah/cala-ledger@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@shottah/cala-ledger@workspace:."
+  dependencies:
+    "@napi-rs/cli": "npm:^3.2.0"
+    ava: "npm:^4.3.3"
+  languageName: unknown
+  linkType: soft
 
 "@tybys/wasm-util@npm:^0.10.1":
   version: 0.10.1
